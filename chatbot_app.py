@@ -8,7 +8,7 @@ import streamlit as st
 with st.sidebar:
     option = st.selectbox(
         'Please select your model',
-        ('GPT-3.5-turbo', 'Mixtral 8x7B', 'Llama-3-70B'))
+        ('GPT-4o','GPT-3.5-turbo', 'Mixtral 8x7B', 'Llama-3-70B'))
     st.write('You selected:', option)
 
     # API Key input
@@ -50,6 +50,9 @@ if prompt := st.chat_input():
     if option == 'Mixtral 8x7B':
         client = MistralClient(api_key=api_key)
         response = client.chat(model="open-mixtral-8x7b", messages=st.session_state.messages)
+    elif option == 'GPT-4o':
+        client = OpenAI(api_key=api_key)
+        response = client.chat.completions.create(model="gpt-4o", messages=st.session_state.messages)    
     elif option == 'GPT-3.5-turbo':
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
