@@ -5,3 +5,4 @@ langchain-openai
 mistralai
 langchain-mistralai
 llamaapi
+llama-cpp-python
