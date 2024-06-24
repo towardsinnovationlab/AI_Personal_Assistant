@@ -65,15 +65,14 @@ if not uploaded_file:
     st.stop()
 
 if uploaded_file :
-
-   temp_file = "./temp.pdf"
-   with open(temp_file, "wb") as file:
-       file.write(uploaded_file.getvalue())
-       file_name = uploaded_file.name
-
-   loader = PyPDFLoader(temp_file)
-   pdf_data = loader.load_and_split()
-   tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
+    temp_file = "./temp.pdf"
+    with open(temp_file, "wb") as file:
+        file.write(uploaded_file.getvalue())
+        file_name = uploaded_file.name
+    
+    loader = PyPDFLoader(temp_file)
+    pdf_data = loader.load_and_split()
+    tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
 
     def count_tokens(text: str) -> int:
         return len(tokenizer.encode(text))
