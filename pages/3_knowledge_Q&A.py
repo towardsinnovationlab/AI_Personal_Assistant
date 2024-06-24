@@ -64,8 +64,9 @@ if not uploaded_file:
     st.info("Please upload documents to continue.")
     st.stop()
 
-if uploaded_file is not None:
-    with open(uploaded_file.name) as w:
+if uploaded_file:
+    temp_file = "./temp.pdf"
+    with open(temp_file.name,"wb") as w:
         w.write(uploaded_file.getvalue())
     loader = PyPDFLoader(uploaded_file.name)
     pdf_data = loader.load_and_split()
