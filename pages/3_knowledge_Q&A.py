@@ -9,8 +9,8 @@ from langchain import LLMMathChain
 from langchain_openai import ChatOpenAI
 from langchain_mistralai.chat_models import ChatMistralAI
 from langchain_mistralai import MistralAIEmbeddings
-#from langchain_community.llms import LlamaCpp
-#from langchain_community.embeddings import LlamaCppEmbeddings
+from langchain_community.llms import LlamaCpp
+from langchain_community.embeddings import LlamaCppEmbeddings
 from langchain.chains import RetrievalQA
 from langchain_community.document_loaders import PyPDFLoader
 from transformers import GPT2TokenizerFast
