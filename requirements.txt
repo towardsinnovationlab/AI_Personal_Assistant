@@ -7,3 +7,4 @@ mistralai
 langchain-mistralai
 llamaapi
 llama-cpp-python
+transformers
