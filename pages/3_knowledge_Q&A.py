@@ -9,8 +9,8 @@ from langchain import LLMMathChain
 from langchain_openai import ChatOpenAI
 from langchain_mistralai.chat_models import ChatMistralAI
 from langchain_mistralai import MistralAIEmbeddings
-from langchain_community.llms import LlamaCpp
-from langchain_community.embeddings import LlamaCppEmbeddings
+#from langchain_community.llms import LlamaCpp
+#from langchain_community.embeddings import LlamaCppEmbeddings
 from langchain.chains import RetrievalQA
 from langchain_community.document_loaders import PyPDFLoader
 from transformers import GPT2TokenizerFast
@@ -103,11 +103,11 @@ if uploaded_file is not None:
         retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
         qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
     else:
-        chat = ChatLlamaCpp(temperature=0, model_name='llama3-70b', api_key=api_key)
-        embeddings = LlamaCppEmbeddings(api_key=api_key)
-        db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
-        retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
-        qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
+        #chat = ChatLlamaCpp(temperature=0, model_name='llama3-70b', api_key=api_key)
+        #embeddings = LlamaCppEmbeddings(api_key=api_key)
+        #db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
+        #retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
+        #qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
 
 
     if prompt := st.chat_input():
