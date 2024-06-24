@@ -66,7 +66,7 @@ if not uploaded_file:
 
 if uploaded_file:
     temp_file = "./temp.pdf"
-    with open(temp_file.name,"wb") as w:
+    with open(temp_file,"wb") as w:
         w.write(uploaded_file.getvalue())
     loader = PyPDFLoader(uploaded_file.name)
     pdf_data = loader.load_and_split()
