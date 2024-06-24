@@ -2,6 +2,7 @@ streamlit
 langchain
 openai
 langchain-openai
+langchain_community
 mistralai
 langchain-mistralai
 llamaapi
