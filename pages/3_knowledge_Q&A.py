@@ -65,8 +65,8 @@ if not uploaded_file:
     st.stop()
 
 if uploaded_file is not None:
-    with open(uploaded_file.name, mode='wb') as w:
-        w.write(uploaded_file.getvalue())
+    #with open(uploaded_file.name, mode='wb') as w:
+    #    w.write(uploaded_file.getvalue())
     loader = PyPDFLoader(uploaded_file.name)
     pdf_data = loader.load_and_split()
     tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
