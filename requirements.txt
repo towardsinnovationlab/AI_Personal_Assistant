@@ -1,6 +1,6 @@
 streamlit
 langchain
 openai
-langchain_openai
+langchain-openai
 mistralai
 llamaapi
