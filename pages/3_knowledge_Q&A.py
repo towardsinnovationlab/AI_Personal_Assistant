@@ -96,12 +96,12 @@ if uploaded_file is not None:
         db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
         retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
         qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
-    elif option=='Mixtral 8x7B':
-        chat = ChatMistralAI(temperature=0, model_name='open-mixtral-8x7b', api_key=api_key)
-        embeddings = MistralAIEmbeddings(api_key=api_key)
-        db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
-        retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
-        qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
+    #elif option=='Mixtral 8x7B':
+    #    chat = ChatMistralAI(temperature=0, model_name='open-mixtral-8x7b', api_key=api_key)
+    #    embeddings = MistralAIEmbeddings(api_key=api_key)
+    #    db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
+    #    retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
+    #    qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
     #else:
     #    chat = ChatLlamaCpp(temperature=0, model_name='llama3-70b', api_key=api_key)
     #    embeddings = LlamaCppEmbeddings(api_key=api_key)
