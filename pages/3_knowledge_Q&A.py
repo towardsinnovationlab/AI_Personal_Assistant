@@ -15,8 +15,6 @@ from langchain_openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import FAISS
 from langchain.schema import Document
-from langchain.schema import AIMessage, HumanMessage, SystemMessage
-from IPython.display import display, Markdown
 
 # Initialize the session state
 if "messages" not in st.session_state:
