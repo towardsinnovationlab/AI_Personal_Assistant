@@ -65,11 +65,9 @@ if not uploaded_file:
     st.stop()
 
 if uploaded_file is not None:
-    temp_file = "./temp.pdf"
-    with open(temp_file, "wb") as file:
-        file.write(uploaded_file.getvalue())
-        file_name = uploaded_file.name
-    loader = PyPDFLoader(temp_file)
+    with open(uploaded_file.name, mode='wb') as w:
+        w.write(uploaded_file.getvalue())
+    loader = PyPDFLoader(uploaded_file.name)
     pdf_data = loader.load_and_split()
     tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
 
@@ -104,12 +102,12 @@ if uploaded_file is not None:
         db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
         retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
         qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
-    #else:
-        #chat = ChatLlamaCpp(temperature=0, model_name='llama3-70b', api_key=api_key)
-        #embeddings = LlamaCppEmbeddings(api_key=api_key)
-        #db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
-        #retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
-        #qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
+    else:
+        chat = ChatLlamaCpp(temperature=0, model_name='llama3-70b', api_key=api_key)
+        embeddings = LlamaCppEmbeddings(api_key=api_key)
+        db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
+        retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
+        qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
 
 
     if prompt := st.chat_input():
