@@ -1,16 +1,9 @@
 from openai import OpenAI
-from mistralai.client import MistralClient
-from mistralai.models.chat_completion import ChatMessage
-from llamaapi import LlamaAPI
 import streamlit as st
 # Import the langchain package and modules
 import langchain as lc
 from langchain import LLMMathChain
 from langchain_openai import ChatOpenAI
-from langchain_mistralai.chat_models import ChatMistralAI
-from langchain_mistralai import MistralAIEmbeddings
-from langchain_community.llms import LlamaCpp
-from langchain_community.embeddings import LlamaCppEmbeddings
 from langchain.chains import RetrievalQA
 from langchain_community.document_loaders import PyPDFLoader
 from transformers import GPT2TokenizerFast
@@ -19,7 +12,6 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import FAISS
 from langchain.schema import Document
 from langchain.schema import AIMessage, HumanMessage, SystemMessage
-#from IPython.display import display, Markdown
 
 # Initialize the session state
 if "messages" not in st.session_state:
@@ -34,11 +26,6 @@ with st.sidebar:
     option = st.selectbox(
         'Please select your model',
         ('GPT-4o','GPT-3.5-turbo', 'Mixtral 8x7B', 'Llama-3-70B'))
-    st.write('You selected:', option)
-
-    option = st.selectbox(
-        'Please select your framework',
-        ('LangChain','LlamaIndex', 'Haystack'))
     st.write('You selected:', option)
 
     # API Key input
@@ -88,27 +75,11 @@ if uploaded_file is not None:
         st.session_state["messages"].append({"role": "assistant", "content": "How can I help you?"})
         st.session_state["greeting_shown"] = True  # Set the flag to True
 
-    if option=='GPT-4o':
-        chat = ChatOpenAI(temperature=0, model_name='gpt-4o', api_key=api_key)
-    elif option=='GPT-3.5-turbo':
-        chat = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo', api_key=api_key)
-        embeddings = OpenAIEmbeddings(api_key=api_key)
-        db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
-        retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
-        qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
-    #elif option=='Mixtral 8x7B':
-    #    chat = ChatMistralAI(temperature=0, model_name='open-mixtral-8x7b', api_key=api_key)
-    #    embeddings = MistralAIEmbeddings(api_key=api_key)
-    #    db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
-    #    retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
-    #    qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
-    #else:
-    #    chat = ChatLlamaCpp(temperature=0, model_name='llama3-70b', api_key=api_key)
-    #    embeddings = LlamaCppEmbeddings(api_key=api_key)
-    #    db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
-    #    retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
-    #    qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
-
+    chat = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo', api_key=api_key)
+    embeddings = OpenAIEmbeddings(api_key=api_key)
+    db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
+    retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
+    qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
 
     if prompt := st.chat_input():
         st.session_state["messages"].append({"role": "user", "content": prompt})
