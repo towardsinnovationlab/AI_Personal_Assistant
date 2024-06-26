@@ -16,7 +16,7 @@ with st.sidebar:
 
     # Reset button
     if st.button('Reset Conversation'):
-        st.session_state.chatbot["messages"] = []
+        st.session_state.2_chatbot["messages"] = []
         st.info("Please change your API_KEY if you change model.")
     
     st.write("check out this [article](https://medium.com/@c.giancaterino/build-your-personal-ai-assistant-with-streamlit-and-llms-2f95c9b00e0b)")
@@ -29,10 +29,10 @@ st.caption("🚀 Your Personal AI Assistant powered by Streamlit and LLMs")
 
 # Initialize messages if not present in session state
 if "messages" not in st.session_state.chatbot:
-    st.session_state.chatbot["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
+    st.session_state.2_chatbot["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
 # Display messages
-for msg in st.session_state.chatbot.messages:
+for msg in st.session_state.2_chatbot.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
 
@@ -43,7 +43,7 @@ if prompt := st.chat_input():
         st.stop()
 
     # Append user message to session state
-    st.session_state.chatbot.messages.append({"role": "user", "content": prompt})
+    st.session_state.2_chatbot.messages.append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
 
     # Client initialization based on selected model
@@ -66,5 +66,5 @@ if prompt := st.chat_input():
 
     # Process response and update session state
     msg = response.choices[0].message.content
-    st.session_state.chatbot.chatbot.messages.append({"role": "assistant", "content": msg})
+    st.session_state.2_chatbot.chatbot.messages.append({"role": "assistant", "content": msg})
     st.chat_message("assistant").write(msg)
