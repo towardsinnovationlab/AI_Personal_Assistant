@@ -95,9 +95,9 @@ if uploaded_file is not None:
             st.session_state["messages"].append({"role": "assistant", "content": "No 'result' key found in the response."})
 
     # Display the conversation
-    #for message in st.session_state["messages"]:
-    #    if message["role"] == "assistant":
-    #        st.chat_message("assistant").write(message["content"])
-    #    elif message["role"] == "user":
-    #        st.chat_message("user").write(message["content"])
+    for message in st.session_state["messages"]:
+        if message["role"] == "assistant":
+            st.chat_message("assistant").write(message["content"])
+        elif message["role"] == "user":
+            st.chat_message("user").write(message["content"])
 
