@@ -28,7 +28,7 @@ st.caption("🚀 Your Personal AI Assistant powered by Streamlit and LLMs")
 
 
 # Initialize messages if not present in session state
-if "messages" not in st.session_state:
+if '2_chatbot' not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
 # Display messages
