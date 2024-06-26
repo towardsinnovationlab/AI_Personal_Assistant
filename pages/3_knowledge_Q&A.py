@@ -8,6 +8,7 @@ from langchain import LLMMathChain
 from langchain_openai import ChatOpenAI
 from langchain_mistralai.chat_models import ChatMistralAI
 from langchain_mistralai import MistralAIEmbeddings
+from langchain_experimental.llms import ChatLlamaAPI
 from langchain_community.llms import LlamaCpp
 from langchain_community.embeddings import LlamaCppEmbeddings
 from langchain.chains import RetrievalQA
@@ -30,7 +31,7 @@ if "greeting_shown" not in st.session_state:
 with st.sidebar:
     option = st.selectbox(
         'Please select your model',
-        ('GPT-4o','GPT-3.5-turbo','Mixtral 8x7B'))
+        ('GPT-4o','GPT-3.5-turbo','Mixtral 8x7B', 'Llama-3-70B'))
     st.write('You selected:', option)
 
     st.write('You are using LangChain framework')
@@ -95,12 +96,19 @@ if uploaded_file is not None:
         db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
         retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
         qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
-    else:
+    elif option=='Mixtral 8x7B':
         chat = ChatMistralAI(temperature=0, model_name='open-mixtral-8x7b', api_key=api_key)
         embeddings = MistralAIEmbeddings(api_key=api_key)
         db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
         retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
         qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
+    else:
+        chat = ChatLlamaAPI(temperature=0, model_name='llama3-70b', api_key=api_key)
+        embeddings = LlamaCppEmbeddings(api_key=api_key)
+        db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
+        retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
+        qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
+
 
 
     
