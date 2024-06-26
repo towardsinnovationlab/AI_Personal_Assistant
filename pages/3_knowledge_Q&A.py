@@ -17,7 +17,7 @@ if "3_knowledge_Q&A" not in st.session_state:
 
 # Initialize the greeting_shown state
 if "greeting_shown" not in st.session_state:
-    st.session_state["greeting_shown"] = False
+    st.session_state["greeting_shown"] = True
 
 # Sidebar for model selection
 with st.sidebar:
