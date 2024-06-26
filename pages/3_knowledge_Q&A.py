@@ -26,10 +26,7 @@ with st.sidebar:
         ('GPT-4o','GPT-3.5-turbo'))
     st.write('You selected:', option)
 
-    option = st.selectbox(
-        'Please select your framework',
-        'LangChain')
-    st.write('You selected:', option)
+    st.write('You are using LangChain framework')
 
     # API Key input
     api_key = st.text_input("Please Copy & Paste your API_KEY", key="chatbot_api_key", type="password")
