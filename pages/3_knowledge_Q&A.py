@@ -104,6 +104,7 @@ if uploaded_file is not None:
         qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
     else:
         st.write('RAG not available')
+        st.stop()
         chat = ChatOpenAI(temperature=0, model_name='llama3-70b', api_key=api_key, base_url="https://api.llama-api.com")
         embeddings = OpenAIEmbeddings(api_key=api_key,base_url="https://api.llama-api.com")
         #db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
