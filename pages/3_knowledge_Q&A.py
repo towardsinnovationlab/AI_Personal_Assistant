@@ -12,7 +12,7 @@ from langchain.vectorstores import FAISS
 from langchain.schema import Document
 
 # Initialize the session state
-if "messages" not in st.session_state:
+if "3_knowledge_Q&A" not in st.session_state:
     st.session_state["messages"] = []
 
 # Initialize the greeting_shown state
