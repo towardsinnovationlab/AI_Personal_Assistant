@@ -12,7 +12,7 @@ from langchain.vectorstores import FAISS
 from langchain.schema import Document
 
 # Initialize the session state
-if '3_knowledge_Q&A' not in st.session_state:
+if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
 # Initialize the greeting_shown state
@@ -78,6 +78,10 @@ if uploaded_file is not None:
 
     if option=='GPT-4o':
         chat = ChatOpenAI(temperature=0, model_name='gpt-4o', api_key=api_key)
+        embeddings = OpenAIEmbeddings(api_key=api_key)
+        db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
+        retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
+        qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
     else:
         chat = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo', api_key=api_key)
         embeddings = OpenAIEmbeddings(api_key=api_key)
