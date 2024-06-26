@@ -28,7 +28,7 @@ with st.sidebar:
 
     option = st.selectbox(
         'Please select your framework',
-        ('LangChain'))
+        'LangChain')
     st.write('You selected:', option)
 
     # API Key input
