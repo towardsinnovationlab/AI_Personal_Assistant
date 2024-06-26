@@ -104,12 +104,10 @@ if uploaded_file is not None:
         qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
     else:
         chat = ChatOpenAI(temperature=0, model_name='llama3-70b', api_key=api_key, base_url="https://api.llama-api.com")
-        #llama = LlamaAPI(api_key=api_key,base_url="https://api.llama-api.com")
-        #model = ChatLlamaAPI(client=llama, model_name='llama3-70b')
-        embeddings = OpenAIEmbeddings(api_key=api_key,base_url="https://api.llama-api.com")
-        db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
-        retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
-        qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
+        #embeddings = OpenAIEmbeddings(api_key=api_key)
+        #db_FAISS = FAISS.from_documents(pdf_chunks, embeddings)
+        #retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
+        #qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
 
 
 
