@@ -12,8 +12,8 @@ from langchain.vectorstores import FAISS
 from langchain.schema import Document
 
 # Initialize the session state
-if "messages" not in st.session_state:
-    st.session_state["messages"] = []
+if "notes" not in st.session_state:
+    st.session_state["notes"] = []
 
 # Initialize the greeting_shown state
 if "greeting_shown" not in st.session_state:
@@ -33,7 +33,7 @@ with st.sidebar:
 
     # Reset button
     if st.button('Reset Conversation'):
-        st.session_state["messages"] = []
+        st.session_state["notes"] = []
         st.session_state["greeting_shown"] = False  # Reset the flag as well
         st.info("Please change your API_KEY if you change model.")
 
@@ -73,7 +73,7 @@ if uploaded_file is not None:
 
     # Add the greeting message only if it hasn't been shown yet
     if not st.session_state["greeting_shown"]:
-        st.session_state["messages"].append({"role": "assistant", "content": "How can I help you?"})
+        st.session_state["notes"].append({"role": "assistant", "content": "How can I help you?"})
         st.session_state["greeting_shown"] = True  # Set the flag to True
 
     if option=='GPT-4o':
@@ -86,16 +86,16 @@ if uploaded_file is not None:
         qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
     
     if prompt := st.chat_input():
-        st.session_state["messages"].append({"role": "user", "content": prompt})
+        st.session_state["notes"].append({"role": "user", "content": prompt})
 
         response = qa.invoke({"query": prompt})
         if "result" in response:
-            st.session_state["messages"].append({"role": "assistant", "content": response["result"]})
+            st.session_state["notes"].append({"role": "assistant", "content": response["result"]})
         else:
-            st.session_state["messages"].append({"role": "assistant", "content": "No 'result' key found in the response."})
+            st.session_state["notes"].append({"role": "assistant", "content": "No 'result' key found in the response."})
 
     # Display the conversation
-    for message in st.session_state["messages"]:
+    for message in st.session_state["notes"]:
         if message["role"] == "assistant":
             st.chat_message("assistant").write(message["content"])
         elif message["role"] == "user":
