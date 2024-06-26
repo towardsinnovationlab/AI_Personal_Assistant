@@ -2,7 +2,7 @@ streamlit
 langchain
 openai
 langchain-openai
-langchain_community
+langchain-community
 langchain-experimental
 mistralai
 langchain-mistralai
