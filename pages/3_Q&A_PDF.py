@@ -19,11 +19,6 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import FAISS
 from langchain.schema import Document
 
-text_to_copy = st.text_input("Enter text to copy:")
-hosted_html_file = "https://example.com/copy.html"  # Replace with your hosted HTML file URL
-iframe_url = f"{hosted_html_file}?copy={text_to_copy}"
-st.markdown(f'<iframe src="{iframe_url}"></iframe>', unsafe_allow_html=True)
-
 
 # Initialize the session state
 if "messages" not in st.session_state:
