@@ -16,6 +16,6 @@ st.markdown("""
 
 
 st.image("./images/magicstudio-art_ai_1.jpg", width=500)
-st.write("Pixabay")
+
 
 
