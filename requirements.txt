@@ -11,3 +11,6 @@ transformers
 pypdf
 tiktoken
 faiss-cpu
+PyMuPDF
+python-docx
+
