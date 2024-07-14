@@ -7,7 +7,8 @@ st.title("💬 AI Chatbot development")
 st.caption("🚀 Your Personal AI Assistant helping in your activities")
 
 
-
+with st.sidebar:
+    st.write("check out this [article](https://medium.com/@c.giancaterino/build-your-personal-ai-assistant-with-streamlit-and-llms-2f95c9b00e0b)")
 
 
 st.markdown("""
