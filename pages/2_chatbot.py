@@ -19,7 +19,7 @@ with st.sidebar:
         st.session_state["messages"] = []
         st.info("Please change your API_KEY if you change model.")
     
-    st.write("check out this [article](https://medium.com/@c.giancaterino/build-your-personal-ai-assistant-with-streamlit-and-llms-2f95c9b00e0b)")
+    
 
 # Title and caption
 st.title("💬 AI Chatbot")
