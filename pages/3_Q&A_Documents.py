@@ -34,9 +34,14 @@ with st.sidebar:
     st.write('You selected:', option)
 with st.sidebar:
     doc = st.selectbox(
-        'Please select your document',
+        'Please select your type of document',
         ('PDF','DOC','TXT'))
-    st.write('You selected:', option)
+    st.write('You selected:', doc)
+with st.sidebar:
+    RAG = st.selectbox(
+        'Please select the RAG architecture',
+        ('Naive RAG','Advanced RAG','Agentic RAG'))
+    st.write('You selected:', RAG)
 
 
     st.write('You are using LangChain framework')
@@ -96,6 +101,7 @@ if uploaded_file is not None:
         st.session_state["messages"].append({"role": "assistant", "content": "How can I help you?"})
         st.session_state["greeting_shown"] = True  # Set the flag to True
 
+    
     if option=='GPT-4o':
         chat = ChatOpenAI(temperature=0, model_name='gpt-4o', api_key=api_key)
         embeddings = OpenAIEmbeddings(api_key=api_key)
@@ -127,6 +133,7 @@ if uploaded_file is not None:
         retriever = db_FAISS.as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.6})
         qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever, return_source_documents=True)
     
+        
 
 
     
