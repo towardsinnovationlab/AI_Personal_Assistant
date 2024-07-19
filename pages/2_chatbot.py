@@ -8,7 +8,7 @@ import streamlit as st
 with st.sidebar:
     option = st.selectbox(
         'Please select your model',
-        ('GPT-4o','GPT-4o-mini','GPT-4-turbo','GPT-3.5-turbo','Mixtral 8x7B','Mixtral 8x22B', 'Codestral Mamba','Mathstral','Mistral NeMo','Llama-3-70B','Qwen2-72B','Gemma-7B'))
+        ('GPT-4o','GPT-4o-mini','GPT-4-turbo','GPT-3.5-turbo','Mixtral 8x7B','Mixtral 8x22B', 'Codestral Mamba','Mistral NeMo','Llama-3-70B','Qwen2-72B','Gemma-7B'))
     st.write('You selected:', option)
 
     # API Key input
