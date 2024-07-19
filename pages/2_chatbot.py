@@ -8,7 +8,7 @@ import streamlit as st
 with st.sidebar:
     option = st.selectbox(
         'Please select your model',
-        ('GPT-4o','GPT-4-turbo','GPT-3.5-turbo','Mixtral 8x7B','Mixtral 8x22B', 'Llama-3-70B','Qwen2-72B','Gemma-7B'))
+        ('GPT-4o','GPT-4o-mini','GPT-4-turbo','GPT-3.5-turbo','Mixtral 8x7B','Mixtral 8x22B', 'Codestral Mamba','Mathstral','Mistral NeMo','Llama-3-70B','Qwen2-72B','Gemma-7B'))
     st.write('You selected:', option)
 
     # API Key input
@@ -53,9 +53,21 @@ if prompt := st.chat_input():
     elif option == 'Mixtral 8x22B':
         client = MistralClient(api_key=api_key)
         response = client.chat(model="open-mixtral-8x22b", messages=st.session_state.messages)
+    elif option == 'Codestral Mamba':
+        client = MistralClient(api_key=api_key)
+        response = client.chat(model="open-codestral-mamba", messages=st.session_state.messages)
+    elif option == 'Mathstral':
+        client = MistralClient(api_key=api_key)
+        response = client.chat(model="open-mathstral", messages=st.session_state.messages)
+    elif option == 'Mistral NeMo':
+        client = MistralClient(api_key=api_key)
+        response = client.chat(model="open-mistral-nemo-latest", messages=st.session_state.messages)            
     elif option == 'GPT-4o':
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="gpt-4o", messages=st.session_state.messages) 
+    elif option == 'GPT-4o-mini':
+        client = OpenAI(api_key=api_key)
+        response = client.chat.completions.create(model="gpt-4o-mini", messages=st.session_state.messages)     
     elif option == 'GPT-4-turbo':
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="gpt-4-turbo", messages=st.session_state.messages)     
