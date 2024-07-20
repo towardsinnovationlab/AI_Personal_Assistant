@@ -13,4 +13,5 @@ tiktoken
 faiss-cpu
 PyMuPDF
 python-docx
+IPython
 
