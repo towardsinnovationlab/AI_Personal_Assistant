@@ -3,6 +3,7 @@ from mistralai.client import MistralClient
 from mistralai.models.chat_completion import ChatMessage
 from llamaapi import LlamaAPI
 import streamlit as st
+from IPython.display import display, Math
 
 # Sidebar for model selection
 with st.sidebar:
@@ -58,10 +59,10 @@ if prompt := st.chat_input():
         response = client.chat(model="open-codestral-mamba", messages=st.session_state.messages)
     elif option == 'Mathstral':
         client = MistralClient(api_key=api_key)
-        response = client.chat(model="open-mathstral", messages=st.session_state.messages)
+        response = client.chat(model="mistralai/mathstral-7B-v0.1", messages=st.session_state.messages)
     elif option == 'Mistral NeMo':
         client = MistralClient(api_key=api_key)
-        response = client.chat(model="open-mistral-nemo-latest", messages=st.session_state.messages)            
+        response = client.chat(model="open-mistral-nemo-2407", messages=st.session_state.messages)            
     elif option == 'GPT-4o':
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="gpt-4o", messages=st.session_state.messages) 
