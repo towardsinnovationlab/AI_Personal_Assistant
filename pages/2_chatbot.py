@@ -9,7 +9,7 @@ from IPython.display import display, Math
 with st.sidebar:
     option = st.selectbox(
         'Please select your model',
-        ('GPT-4o','GPT-4o-mini','GPT-4-turbo','GPT-3.5-turbo','Mixtral 8x7B','Mixtral 8x22B', 'Codestral Mamba','Mistral NeMo','Llama-3-70B','Qwen2-72B','Gemma-7B'))
+        ('GPT-4o','GPT-4o-mini','GPT-4-turbo','GPT-3.5-turbo','Mixtral 8x7B','Mixtral 8x22B', 'Mistral Large 2','Mistral NeMo','Llama-3.1-405B','Qwen2-72B','Gemma2-27B'))
     st.write('You selected:', option)
 
     # API Key input
@@ -54,9 +54,9 @@ if prompt := st.chat_input():
     elif option == 'Mixtral 8x22B':
         client = MistralClient(api_key=api_key)
         response = client.chat(model="open-mixtral-8x22b", messages=st.session_state.messages)
-    elif option == 'Codestral Mamba':
+    elif option == 'Mistral Large 2':
         client = MistralClient(api_key=api_key)
-        response = client.chat(model="open-codestral-mamba", messages=st.session_state.messages)
+        response = client.chat(model="mistral-large-2407", messages=st.session_state.messages)
     elif option == 'Mathstral':
         client = MistralClient(api_key=api_key)
         response = client.chat(model="mistralai/mathstral-7B-v0.1", messages=st.session_state.messages)
@@ -75,15 +75,15 @@ if prompt := st.chat_input():
     elif option == 'GPT-3.5-turbo':
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
-    elif option == 'Llama-3-70B':
+    elif option == 'Llama-3.1-405B':
         client = OpenAI(api_key=api_key,base_url="https://api.llama-api.com")
-        response = client.chat.completions.create(model="llama3-70b", messages=st.session_state.messages)
+        response = client.chat.completions.create(model="llama3.1-405b", messages=st.session_state.messages)
     elif option == 'Qwen2-72B':
         client = OpenAI(api_key=api_key,base_url="https://api.llama-api.com")
         response = client.chat.completions.create(model="Qwen2-72B", messages=st.session_state.messages) 
-    elif option == 'Gemma-7B':
+    elif option == 'Gemma2-27B':
         client = OpenAI(api_key=api_key,base_url="https://api.llama-api.com")
-        response = client.chat.completions.create(model="gemma-7b", messages=st.session_state.messages)        
+        response = client.chat.completions.create(model="gemma2-27b", messages=st.session_state.messages)        
     else:
         st.error("Selected model is not supported.")
         st.stop()
