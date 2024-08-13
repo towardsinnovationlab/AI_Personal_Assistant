@@ -1,6 +1,7 @@
 from openai import OpenAI
-from mistralai.client import MistralClient
-from mistralai.models.chat_completion import ChatMessage
+#from mistralai.client import MistralClient
+#from mistralai.models.chat_completion import ChatMessage
+from mistralai import Mistral
 from llamaapi import LlamaAPI
 import streamlit as st
 from IPython.display import display, Math
@@ -49,20 +50,20 @@ if prompt := st.chat_input():
 
     # Client initialization based on selected model
     if option == 'Mixtral 8x7B':
-        client = MistralClient(api_key=api_key)
-        response = client.chat(model="open-mixtral-8x7b", messages=st.session_state.messages)
+        client = Mistral(api_key=api_key)
+        response = client.chat.complete(model="open-mixtral-8x7b", messages=st.session_state.messages)
     elif option == 'Mixtral 8x22B':
-        client = MistralClient(api_key=api_key)
-        response = client.chat(model="open-mixtral-8x22b", messages=st.session_state.messages)
+        client = Mistral(api_key=api_key)
+        response = client.chat.complete(model="open-mixtral-8x22b", messages=st.session_state.messages)
     elif option == 'Mistral Large 2':
-        client = MistralClient(api_key=api_key)
-        response = client.chat(model="mistral-large-2407", messages=st.session_state.messages)
+        client = Mistral(api_key=api_key)
+        response = client.chat.complete(model="mistral-large-2407", messages=st.session_state.messages)
     elif option == 'Mathstral':
-        client = MistralClient(api_key=api_key)
-        response = client.chat(model="mistralai/mathstral-7B-v0.1", messages=st.session_state.messages)
+        client = Mistral(api_key=api_key)
+        response = client.chat.complete(model="mistralai/mathstral-7B-v0.1", messages=st.session_state.messages)
     elif option == 'Mistral NeMo':
-        client = MistralClient(api_key=api_key)
-        response = client.chat(model="open-mistral-nemo-2407", messages=st.session_state.messages)            
+        client = Mistral(api_key=api_key)
+        response = client.chat.complete(model="open-mistral-nemo-2407", messages=st.session_state.messages)            
     elif option == 'GPT-4o':
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="gpt-4o", messages=st.session_state.messages) 
