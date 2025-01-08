@@ -10,7 +10,8 @@ from IPython.display import display, Math
 with st.sidebar:
     option = st.selectbox(
         'Please select your model',
-        ('o1-mini','GPT-4o','GPT-4o-mini','GPT-4-turbo','GPT-3.5-turbo','Mixtral 8x7B','Mixtral 8x22B', 'Mistral Large 2','Mistral NeMo','Llama-3.1-405B','Qwen2-72B','Gemma2-27B'))
+        ('o1-mini','GPT-4o','GPT-4o-mini','GPT-4-turbo','GPT-3.5-turbo','Mixtral 8x7B','Mixtral 8x22B', 'Mistral Large 2','Mistral NeMo',
+         'Llama-3.1-405B','Llama-3.2-3B','Gemma2-27B'))
     st.write('You selected:', option)
 
     # API Key input
@@ -82,9 +83,9 @@ if prompt := st.chat_input():
     elif option == 'Llama-3.1-405B':
         client = OpenAI(api_key=api_key,base_url="https://api.llama-api.com")
         response = client.chat.completions.create(model="llama3.1-405b", messages=st.session_state.messages, max_tokens=1000)
-    #elif option == 'Qwen2-72B':
-    #    client = OpenAI(api_key=api_key,base_url="https://api.llama-api.com")
-    #    response = client.chat.completions.create(model="Qwen2-72B", messages=st.session_state.messages, max_tokens=1000) 
+    elif option == 'Llama-3.2-3B':
+        client = OpenAI(api_key=api_key,base_url="https://api.llama-api.com")
+        response = client.chat.completions.create(model="llama3.2-3b", messages=st.session_state.messages, max_tokens=1000) 
     #elif option == 'Gemma2-27B':
     #    client = OpenAI(api_key=api_key,base_url="https://api.llama-api.com")
     #    response = client.chat.completions.create(model="gemma2-27b", messages=st.session_state.messages, max_tokens=1000)        
