@@ -80,14 +80,14 @@ if prompt := st.chat_input():
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
     elif option == 'Llama-3.1-405B':
-        client = OpenAI(api_key=api_key,base_url="https://api.llama-api.com")
+        client = LlamaAPI(api_key=api_key)
         response = client.chat.completions.create(model="llama3.1-405b", messages=st.session_state.messages, max_tokens=1000)
-    elif option == 'Qwen2-72B':
-        client = OpenAI(api_key=api_key,base_url="https://api.llama-api.com")
-        response = client.chat.completions.create(model="Qwen2-72B", messages=st.session_state.messages, max_tokens=1000) 
-    elif option == 'Gemma2-27B':
-        client = OpenAI(api_key=api_key,base_url="https://api.llama-api.com")
-        response = client.chat.completions.create(model="gemma2-27b", messages=st.session_state.messages, max_tokens=1000)        
+    #elif option == 'Qwen2-72B':
+    #    client = OpenAI(api_key=api_key,base_url="https://api.llama-api.com")
+    #    response = client.chat.completions.create(model="Qwen2-72B", messages=st.session_state.messages, max_tokens=1000) 
+    #elif option == 'Gemma2-27B':
+    #    client = OpenAI(api_key=api_key,base_url="https://api.llama-api.com")
+    #    response = client.chat.completions.create(model="gemma2-27b", messages=st.session_state.messages, max_tokens=1000)        
     else:
         st.error("Selected model is not supported.")
         st.stop()
