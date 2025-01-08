@@ -1,6 +1,4 @@
 from openai import OpenAI
-#from mistralai.client import MistralClient
-#from mistralai.models.chat_completion import ChatMessage
 from mistralai import Mistral
 from llamaapi import LlamaAPI
 import streamlit as st
