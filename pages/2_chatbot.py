@@ -29,15 +29,8 @@ st.caption("🚀 Your Personal AI Assistant powered by Streamlit and LLMs")
 
 
 # Initialize messages if not present in session state
-#if 'messages' not in st.session_state:
-#    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
-
 if 'messages' not in st.session_state:
-    st.session_state["messages"] = [{
-        "role": "assistant", 
-        "content": "How can I help you?",
-        "system": "Please respond without using LaTeX or Markdown formatting."
-    }]
+    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
 # Display messages
 for msg in st.session_state.messages:
@@ -98,6 +91,33 @@ if prompt := st.chat_input():
         st.error("Selected model is not supported.")
         st.stop()
 
+    def parse_stream_to_katex(stream: Stream):
+    """
+    Takes an OpenAI Stream and replaces ChatGPT LaTeX delimiters
+    with KateX ones.
+    Yields text, not chunks
+    """
+    last_text = ""
+    for chunk in stream:
+        text = chunk.choices[0].delta.content
+        if text:
+            # Sometimes delimiters like \( can be split over two chunks.
+            # If the previous chunk ended in \, prepend that to this chunk
+            if last_text.endswith("\\"):
+                text = last_text + text
+
+            text = (
+                text.replace(r"\[", "$$")
+                .replace(r"\]", "$$")
+                .replace(r"\(", "$")
+                .replace(r"\)", "$")
+            )
+            last_text = text
+
+            # If the text ends in \, we don't return it, we'll get include it in the next chunk
+            if not text.endswith("\\"):
+                yield text
+                
     # Process response and update session state
     msg = response.choices[0].message.content
     st.session_state.messages.append({"role": "assistant", "content": msg})
