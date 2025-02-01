@@ -94,7 +94,7 @@ if prompt := st.chat_input():
 
 
     def escape_latex(text):
-    escape_chars = {
+        escape_chars = {
         "\\": "\\\\",
         "`": "\\`",
         "*": "\\*",
@@ -110,7 +110,7 @@ if prompt := st.chat_input():
         "-": "\\-",
         ".": "\\.",
         "!": "\\!",
-    }
+        }
     for char, escape in escape_chars.items():
         text = text.replace(char, escape)
     return text
