@@ -92,31 +92,31 @@ if prompt := st.chat_input():
         st.stop()
 
     def parse_stream_to_katex(stream: Stream):
-    """
-    Takes an OpenAI Stream and replaces ChatGPT LaTeX delimiters
-    with KateX ones.
-    Yields text, not chunks
-    """
-    last_text = ""
-    for chunk in stream:
-        text = chunk.choices[0].delta.content
-        if text:
-            # Sometimes delimiters like \( can be split over two chunks.
-            # If the previous chunk ended in \, prepend that to this chunk
-            if last_text.endswith("\\"):
-                text = last_text + text
+        """
+        Takes an OpenAI Stream and replaces ChatGPT LaTeX delimiters
+        with KateX ones.
+        Yields text, not chunks
+        """
+        last_text = ""
+        for chunk in stream:
+            text = chunk.choices[0].delta.content
+            if text:
+                # Sometimes delimiters like \( can be split over two chunks.
+                # If the previous chunk ended in \, prepend that to this chunk
+                if last_text.endswith("\\"):
+                    text = last_text + text
 
-            text = (
-                text.replace(r"\[", "$$")
-                .replace(r"\]", "$$")
-                .replace(r"\(", "$")
-                .replace(r"\)", "$")
-            )
-            last_text = text
+                text = (
+                    text.replace(r"\[", "$$")
+                    .replace(r"\]", "$$")
+                    .replace(r"\(", "$")
+                    .replace(r"\)", "$")
+                )
+                last_text = text
 
-            # If the text ends in \, we don't return it, we'll get include it in the next chunk
-            if not text.endswith("\\"):
-                yield text
+                # If the text ends in \, we don't return it, we'll get include it in the next chunk
+                if not text.endswith("\\"):
+                    yield text
                 
     # Process response and update session state
     msg = response.choices[0].message.content
