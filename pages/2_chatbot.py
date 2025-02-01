@@ -113,7 +113,7 @@ if prompt := st.chat_input():
         }
     for char, escape in escape_chars.items():
         text = text.replace(char, escape)
-    return text
+        return text
 
     # When appending the assistant's message
     #msg = escape_latex(response.choices[0].message.content)
