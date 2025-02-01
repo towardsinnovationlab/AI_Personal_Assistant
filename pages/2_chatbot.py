@@ -65,7 +65,7 @@ if prompt := st.chat_input():
         response = client.chat.complete(model="open-mistral-nemo-2407", messages=st.session_state.messages)
     elif option == 'o1-mini':
         client = OpenAI(api_key=api_key)
-        response = client.chat.completions.create(model="gpt-4o", messages=st.session_state.messages)    
+        response = client.chat.completions.create(model="o1-mini-2024-09-12", messages=st.session_state.messages)    
     elif option == 'GPT-4o':
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="gpt-4o", messages=st.session_state.messages) 
