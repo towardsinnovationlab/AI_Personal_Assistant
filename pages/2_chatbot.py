@@ -2,7 +2,7 @@ from openai import OpenAI
 from mistralai import Mistral
 from llamaapi import LlamaAPI
 import streamlit as st
-from IPython.display import display, Math
+#from IPython.display import display, Math
 
 # Sidebar for model selection
 with st.sidebar:
@@ -92,7 +92,35 @@ if prompt := st.chat_input():
         st.stop()
 
 
+
+    def escape_latex(text):
+    escape_chars = {
+        "\\": "\\\\",
+        "`": "\\`",
+        "*": "\\*",
+        "_": "\\_",
+        "{": "\\{",
+        "}": "\\}",
+        "[": "\\[",
+        "]": "\\]",
+        "(": "\\(",
+        ")": "\\)",
+        "#": "\\#",
+        "+": "\\+",
+        "-": "\\-",
+        ".": "\\.",
+        "!": "\\!",
+    }
+    for char, escape in escape_chars.items():
+        text = text.replace(char, escape)
+    return text
+
+    # When appending the assistant's message
+    #msg = escape_latex(response.choices[0].message.content)
+    #st.session_state.messages.append({"role": "assistant", "content": msg})
+    #st.chat_message("assistant").write(msg)
+
     # Process response and update session state
     msg = response.choices[0].message.content
     st.session_state.messages.append({"role": "assistant", "content": msg})
-    st.chat_message("assistant").markdown(msg)
+    st.chat_message("assistant").write(msg)
