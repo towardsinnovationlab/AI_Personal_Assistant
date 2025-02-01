@@ -29,8 +29,15 @@ st.caption("🚀 Your Personal AI Assistant powered by Streamlit and LLMs")
 
 
 # Initialize messages if not present in session state
+#if 'messages' not in st.session_state:
+#    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
+
 if 'messages' not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
+    st.session_state["messages"] = [{
+        "role": "assistant", 
+        "content": "How can I help you?",
+        "system": "Please respond without using LaTeX or Markdown formatting."
+    }]
 
 # Display messages
 for msg in st.session_state.messages:
@@ -90,35 +97,6 @@ if prompt := st.chat_input():
     else:
         st.error("Selected model is not supported.")
         st.stop()
-
-
-
-    def escape_latex(text):
-        escape_chars = {
-        "\\": "\\\\",
-        "`": "\\`",
-        "*": "\\*",
-        "_": "\\_",
-        "{": "\\{",
-        "}": "\\}",
-        "[": "\\[",
-        "]": "\\]",
-        "(": "\\(",
-        ")": "\\)",
-        "#": "\\#",
-        "+": "\\+",
-        "-": "\\-",
-        ".": "\\.",
-        "!": "\\!",
-        }
-    for char, escape in escape_chars.items():
-        text = text.replace(char, escape)
-        return text
-
-    # When appending the assistant's message
-    #msg = escape_latex(response.choices[0].message.content)
-    #st.session_state.messages.append({"role": "assistant", "content": msg})
-    #st.chat_message("assistant").write(msg)
 
     # Process response and update session state
     msg = response.choices[0].message.content
