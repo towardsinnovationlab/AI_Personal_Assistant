@@ -93,16 +93,9 @@ if prompt := st.chat_input():
 
                 
     # Process response and update session state
-    #msg = response.choices[0].message.content
-    #st.session_state.messages.append({"role": "assistant", "content": msg})
-    #st.chat_message("assistant").write(msg)
+    msg = response.choices[0].message.content
+    st.session_state.messages.append({"role": "assistant", "content": msg})
+    st.chat_message("assistant").write(msg)
 
     
-    # Process response and update session state
-    msg = response.choices[0].message.content
-    if 'LaTeX' in msg:
-        # Remove LaTeX formatting
-        st.write(f"**{msg}**")
-    else:
-        st.session_state.messages.append({"role": "assistant", "content": msg})
-        st.chat_message("assistant").write(msg)
+    
