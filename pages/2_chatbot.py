@@ -8,7 +8,7 @@ from IPython.display import display, Math
 with st.sidebar:
     option = st.selectbox(
         'Please select your model',
-        ('o1-mini','GPT-4o','GPT-4o-mini','GPT-4-turbo','GPT-3.5-turbo','Mixtral 8x7B','Mixtral 8x22B', 'Mistral Large 2','Mistral NeMo',
+        ('o3-mini','o1','o1-mini','GPT-4o','GPT-4o-mini','GPT-4-turbo','GPT-3.5-turbo','Mixtral 8x7B','Mixtral 8x22B', 'Mistral Large 2','Mistral NeMo',
          'Llama-3.1-405B','Llama-3.2-3B','Llama-3.3-70B'))
     st.write('You selected:', option)
 
@@ -63,6 +63,12 @@ if prompt := st.chat_input():
     elif option == 'Mistral NeMo':
         client = Mistral(api_key=api_key)
         response = client.chat.complete(model="open-mistral-nemo-2407", messages=st.session_state.messages)
+    elif option == 'o3-mini':
+        client = OpenAI(api_key=api_key)
+        response = client.chat.completions.create(model="o3-mini-2025-01-31", messages=st.session_state.messages)        
+    elif option == 'o1':
+        client = OpenAI(api_key=api_key)
+        response = client.chat.completions.create(model="o1-2024-12-17", messages=st.session_state.messages)        
     elif option == 'o1-mini':
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="o1-mini-2024-09-12", messages=st.session_state.messages)    
@@ -74,7 +80,7 @@ if prompt := st.chat_input():
         response = client.chat.completions.create(model="gpt-4o-mini", messages=st.session_state.messages)     
     elif option == 'GPT-4-turbo':
         client = OpenAI(api_key=api_key)
-        response = client.chat.completions.create(model="gpt-4-turbo", messages=st.session_state.messages)     
+        response = client.chat.completions.create(model="gpt-4-turbo-2024-04-09", messages=st.session_state.messages)     
     elif option == 'GPT-3.5-turbo':
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
