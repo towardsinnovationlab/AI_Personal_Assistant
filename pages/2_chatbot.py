@@ -8,7 +8,7 @@ from IPython.display import display, Math
 with st.sidebar:
     option = st.selectbox(
         'Please select your model',
-        ('o3-mini','o1','o1-mini','GPT-4o','GPT-4o-mini','GPT-4-turbo','GPT-3.5-turbo','Mixtral 8x7B','Mixtral 8x22B', 'Mistral Large 2','Mistral NeMo',
+        ('o3-mini','o1','o1-mini','GPT-4o','GPT-4o-mini','GPT-4.1','o4-mini','Mixtral 8x7B','Mixtral 8x22B', 'Mistral Large 2','Mistral NeMo',
          'Llama-3.1-405B','Llama-3.2-3B','Llama-3.3-70B'))
     st.write('You selected:', option)
 
@@ -78,10 +78,10 @@ if prompt := st.chat_input():
     elif option == 'GPT-4o-mini':
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="gpt-4o-mini", messages=st.session_state.messages)     
-    elif option == 'GPT-4-turbo':
+    elif option == 'GPT-4.1':
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="gpt-4-turbo-2024-04-09", messages=st.session_state.messages)     
-    elif option == 'GPT-3.5-turbo':
+    elif option == 'o4-mini':
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
     elif option == 'Llama-3.1-405B':
