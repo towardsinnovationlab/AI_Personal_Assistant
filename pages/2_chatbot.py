@@ -8,7 +8,7 @@ from IPython.display import display, Math
 with st.sidebar:
     option = st.selectbox(
         'Please select your model',
-        ('o3-mini','o1','o1-mini','GPT-4o','GPT-4o-mini','GPT-4.1','o4-mini','Mixtral 8x7B','Mixtral 8x22B', 'Mistral Large 2','Mistral NeMo',
+        ('o3-mini','o3','GPT-4.5','GPT-4o','GPT-4o-mini','GPT-4.1','o4-mini','Mixtral 8x7B','Mixtral 8x22B', 'Mistral Large 2','Mistral NeMo',
          'Llama-3.1-405B','Llama-3.2-3B','Llama-3.3-70B'))
     st.write('You selected:', option)
 
@@ -66,12 +66,12 @@ if prompt := st.chat_input():
     elif option == 'o3-mini':
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="o3-mini-2025-01-31", messages=st.session_state.messages)        
-    elif option == 'o1':
+    elif option == 'o3':
         client = OpenAI(api_key=api_key)
-        response = client.chat.completions.create(model="o1-2024-12-17", messages=st.session_state.messages)        
-    elif option == 'o1-mini':
+        response = client.chat.completions.create(model="o3", messages=st.session_state.messages)        
+    elif option == 'GPT-4.5':
         client = OpenAI(api_key=api_key)
-        response = client.chat.completions.create(model="o1-mini-2024-09-12", messages=st.session_state.messages)    
+        response = client.chat.completions.create(model="GPT-4.5", messages=st.session_state.messages)    
     elif option == 'GPT-4o':
         client = OpenAI(api_key=api_key)
         response = client.chat.completions.create(model="gpt-4o", messages=st.session_state.messages) 
